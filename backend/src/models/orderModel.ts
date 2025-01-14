@@ -1,6 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from "mongoose";
+import { OrderStatus } from "../enums/general";
+import { Order } from "../types/general";
 
-const orderSchema = new mongoose.Schema({
+const orderSchema: Schema = new Schema<Order>({
   title: { type: String, required: true },
   location: {
     lat: { type: Number, required: true },
@@ -9,7 +11,7 @@ const orderSchema = new mongoose.Schema({
   orderTime: { type: Date, required: true },
   status: {
     type: String,
-    enum: ['Received', 'Preparing', 'Ready', 'EnRoute', 'Delivered'],
+    enum: Object.values(OrderStatus),
     required: true,
   },
   subItems: [
@@ -21,6 +23,6 @@ const orderSchema = new mongoose.Schema({
   ],
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model<Order>("Order", orderSchema);
 
 export default Order;

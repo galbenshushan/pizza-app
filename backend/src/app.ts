@@ -1,19 +1,43 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-
-const bodyParser = require('body-parser');
-
+import orderRoutes from "./routes/orderRoute";
+import connectToDatabase from "./services/dbService";
+import http from "http";
+import socketIo from "socket.io";
+import { getOrdersInterval } from "./controllers/ordersController";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer(app);
+
+const dbUri = process.env.DB_URI;
+
+if (!dbUri) {
+  throw new Error("DB_URI is not defined in the environment variables");
+}
+
+connectToDatabase(dbUri);
+
+export const io = new socketIo.Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  },
+});
 
 app.use(express.json());
+app.use(cors({ origin: process.env.FRONTEND_URL }));
+app.use("/api", orderRoutes);
 
-app.use(cors({ origin: "http://localhost:3001" }));
+io.on("connection", (socket: socketIo.Socket) => {
+  getOrdersInterval();
+  socket.on("disconnect", () => {});
+});
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+server.listen(PORT, async () => {
+  console.log(`Listening on port ${PORT} `);
 });
