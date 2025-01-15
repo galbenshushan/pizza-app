@@ -26,10 +26,7 @@ export const createNewOrder = async (req: Request, res: Response) => {
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
     const orders = await OrdersService.getAllOrders();
-    console.log(orders);
-
     io.emit("ordersUpdated", orders);
-
     res.status(200).json(orders);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -76,9 +73,10 @@ export const getUndeliveredOrders = async (req: Request, res: Response) => {
   }
 };
 
-export const getOrdersInterval = async () => {
+export const getOrdersInterval = async (intervalTime: number) => {
   setInterval(async () => {
     const orders = await OrdersService.getAllOrders();
     io.emit("orders", orders);
-  }, 5000);
+    io.emit("interval", intervalTime);
+  }, intervalTime);
 };

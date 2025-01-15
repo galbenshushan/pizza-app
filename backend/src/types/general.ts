@@ -9,6 +9,7 @@ export interface SubItem {
   title: string;
   amount: number;
   type: string;
+  toppings?: string[];
 }
 
 export interface Order extends Document {

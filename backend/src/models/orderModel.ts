@@ -19,6 +19,7 @@ const orderSchema: Schema = new Schema<Order>({
       title: { type: String, required: true },
       amount: { type: Number, required: true },
       type: { type: String, required: true },
+      toppings: [{ type: String , required: false }],
     },
   ],
 });

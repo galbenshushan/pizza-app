@@ -33,9 +33,8 @@ exports.createNewOrder = createNewOrder;
 const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const orders = yield OrdersService_1.default.getAllOrders();
-        console.log(orders);
-        app_1.io.emit("ordersUpdated", orders); // Emit data to frontend
-        res.status(200).json(orders); // Send the orders as the response
+        app_1.io.emit("ordersUpdated", orders);
+        res.status(200).json(orders);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
@@ -81,10 +80,11 @@ const getUndeliveredOrders = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getUndeliveredOrders = getUndeliveredOrders;
-const getOrdersInterval = () => __awaiter(void 0, void 0, void 0, function* () {
+const getOrdersInterval = (intervalTime) => __awaiter(void 0, void 0, void 0, function* () {
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         const orders = yield OrdersService_1.default.getAllOrders();
         app_1.io.emit("orders", orders);
-    }), 5000);
+        app_1.io.emit("interval", intervalTime);
+    }), intervalTime);
 });
 exports.getOrdersInterval = getOrdersInterval;

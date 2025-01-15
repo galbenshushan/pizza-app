@@ -52,6 +52,7 @@ const orderSchema = new mongoose_1.Schema({
             title: { type: String, required: true },
             amount: { type: Number, required: true },
             type: { type: String, required: true },
+            toppings: [{ type: String, required: false }],
         },
     ],
 });
