@@ -12,3 +12,13 @@ export enum OrderStatus {
   EnRoute = "EnRoute",
   Delivered = "Delivered",
 }
+
+export enum Language {
+  English = "en",
+  Hebrew = "heb",
+}
+
+export enum Direction {
+  LTR = "ltr",
+  RTL = "rtl",
+}
