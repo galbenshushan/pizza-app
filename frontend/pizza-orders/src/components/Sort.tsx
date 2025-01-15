@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { Select, MenuItem, FormControl } from "@mui/material";
 import { useOrders } from "../hooks/useOrders";
 
 const StyledMenuItem = styled(MenuItem)`
@@ -12,11 +12,11 @@ const Sort = () => {
 
   return (
     <FormControl fullWidth variant="outlined" margin="normal">
-      <InputLabel>Sort By</InputLabel>
+      <h3>Sort by:</h3>
+
       <Select
         value={sortOption}
         onChange={handleSortChange}
-        label="Sort By"
         sx={{ backgroundColor: "white" }}
         variant="outlined"
       >

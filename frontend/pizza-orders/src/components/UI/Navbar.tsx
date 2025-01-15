@@ -1,26 +1,22 @@
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import styled from "styled-components";
-import { IconButton } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
 import logo from "../../assets/logo.png";
-import { useAppContext } from "../../hooks/useAppContext";
-
-const SettingsButton = styled(IconButton)`
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  color: white !important;
-  z-index: 1000;
-`;
+import ActionToolbar from "./ActionToolbar";
 
 const Logo = styled("img")`
   height: 100px;
   margin-right: 16px;
 `;
-const Navbar = () => {
-  const { setOpenSettings } = useAppContext();
 
+const StyledToolbar = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+`;
+
+const Navbar = () => {
   return (
     <AppBar
       position="static"
@@ -28,15 +24,14 @@ const Navbar = () => {
         backgroundColor: "rgb(250, 51, 51)",
         height: 130,
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
       }}
     >
-      <Toolbar>
+      <StyledToolbar>
         <Logo src={logo} alt="Pizza Logo" />
-        <SettingsButton onClick={() => setOpenSettings(true)}>
-          <SettingsIcon />
-        </SettingsButton>
-      </Toolbar>
+        <ActionToolbar />
+      </StyledToolbar>
     </AppBar>
   );
 };

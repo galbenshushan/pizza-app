@@ -42,21 +42,19 @@ const generateMockData = () => __awaiter(void 0, void 0, void 0, function* () {
     let orders = [];
     for (let i = 0; i < 300; i++) {
         const order = {
-            title: `Order No. ${i + 1}`, // Ensure title is set
+            title: `Order No. ${i + 1}`,
             location: (0, locations_1.getRandomLocation)(),
-            orderTime: new Date(), // Ensure orderTime is set
-            status: statuses[Math.floor(Math.random() * statuses.length)], // Ensure status is set
+            orderTime: new Date(),
+            status: statuses[Math.floor(Math.random() * statuses.length)],
             subItems: [],
         };
-        // Generate a random number of sub-items (at least one item, max 5 items per order)
-        const subItemCount = Math.floor(Math.random() * 5) + 1; // between 1 and 5 sub-items
+        const subItemCount = Math.floor(Math.random() * 5) + 1;
         let subItems = [];
-        // Randomly choose sub-items (pizza, drink, salad)
         for (let j = 0; j < subItemCount; j++) {
             const subItemType = ["drink", "salad", "pizza"][Math.floor(Math.random() * 3)];
             let subItem = {
                 title: "",
-                amount: Math.floor(Math.random() * 3) + 1, // Random amount from 1 to 3
+                amount: Math.floor(Math.random() * 3) + 1,
                 type: subItemType,
             };
             if (subItemType === "pizza") {
@@ -71,7 +69,7 @@ const generateMockData = () => __awaiter(void 0, void 0, void 0, function* () {
             }
             subItems.push(subItem);
         }
-        order.subItems = subItems; // Assign the sub-items to the order
+        order.subItems = subItems;
         orders.push(order);
     }
     orderModel_1.default.insertMany(orders);

@@ -20,6 +20,7 @@ const Filter = () => {
   const handleStatusClick = (status: string) => setFilter(status);
   return (
     <div>
+      <h3>Filter by:</h3>
       <StatusButton status={""} onClick={() => handleStatusClick("")}>
         All
       </StatusButton>

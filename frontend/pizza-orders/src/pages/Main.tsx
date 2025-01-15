@@ -9,7 +9,7 @@ import Filter from "../components/Filter";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   padding: 20px;
 `;
@@ -22,12 +22,19 @@ const OrderList = styled.div`
   margin: 0 auto;
 `;
 
+const HeaderTitle = styled.h1`
+  font-weight: 800;
+  font-size: 42px;
+`;
+
 const Main = () => {
   const { sortedOrders } = useOrders();
 
   return (
     <Container>
-      <h1>Orders</h1>
+      <HeaderTitle style={{ fontWeight: "800", fontSize: "42px" }}>
+        Orders
+      </HeaderTitle>
       <Filter />
       <Sort />
       <OrderList>

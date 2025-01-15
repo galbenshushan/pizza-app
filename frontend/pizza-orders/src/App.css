@@ -2,6 +2,16 @@
   font-family: "Roboto", sans-serif !important;
 }
 
+/* Add this in your global styles */
+body[dir="rtl"] {
+  text-align: right; /* Right-align text */
+}
+
+body[dir="ltr"] {
+  text-align: left; /* Left-align text */
+}
+
+
 body {
   padding: 0;
   margin: 0;
@@ -9,4 +19,12 @@ body {
   background-attachment: fixed;
   background-repeat: repeat;
   height: 100vh;
+}
+
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Remove arrows in Firefox */
+  -webkit-appearance: none; /* Remove arrows in Chrome, Safari, Edge, and Opera */
+  appearance: none; /* General rule for future-proofing */
+  margin: 0; /* Optional: Fixes alignment issues in some browsers */
 }
