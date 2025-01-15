@@ -6,6 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { getStatusColor } from "../../utils/colors";
 import { getFormattedTime } from "../../utils/date";
 import StyledButton from "../UI/StyledButton";
+import { useAppContext } from "../../hooks/useAppContext";
 
 const OrderCardContainer = styled.div`
   background-color: rgba(250, 51, 51, 0.9);
@@ -60,27 +61,30 @@ interface OrderCardProps {
 
 const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   const formattedTime = getFormattedTime(order.orderTime);
+  const { getText, processText } = useAppContext();
   return (
     <OrderCardContainer key={order._id}>
       <OrderHeader>
         <OrderTitle>
-          {order.title} {`(${formattedTime})`}
+          {processText(order.title.toLowerCase())} {`(${formattedTime})`}
         </OrderTitle>
         <StatusLabel statusColor={getStatusColor(order.status)}>
-          {order.status}
+          {getText(order.status)}
         </StatusLabel>
       </OrderHeader>
 
       <OrderItemsContainer>
-        <div style={{ fontSize: "21px" }}>Items:</div>
+        <div style={{ fontSize: "21px" }}>{getText("items")}:</div>
         {order.subItems.map((orderItem: SubItem, index: number) => (
           <OrderItem orderItem={orderItem} key={index} />
         ))}
       </OrderItemsContainer>
       <StyledButton
-        tooltip={`Location: ${order.location.lat}, ${order.location.lng}`}
+        tooltip={`${getText("location")}: ${order.location.lat}, ${
+          order.location.lng
+        }`}
         onClick={() => handleShowOnMap(order.location)}
-        text="Show on Map"
+        text={getText("showOnMap")}
         prefixIcon={<LocationIconStyled />}
       />
     </OrderCardContainer>

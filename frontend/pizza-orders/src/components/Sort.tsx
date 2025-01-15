@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Select, MenuItem, FormControl } from "@mui/material";
 import { useOrders } from "../hooks/useOrders";
+import { useAppContext } from "../hooks/useAppContext";
 
 const StyledMenuItem = styled(MenuItem)`
   &:hover {
@@ -9,10 +10,11 @@ const StyledMenuItem = styled(MenuItem)`
 `;
 const Sort = () => {
   const { sortOption, handleSortChange } = useOrders();
+  const { getText } = useAppContext();
 
   return (
     <FormControl fullWidth variant="outlined" margin="normal">
-      <h3>Sort by:</h3>
+      <h3>{getText("sortBy")}:</h3>
 
       <Select
         value={sortOption}
@@ -20,9 +22,11 @@ const Sort = () => {
         sx={{ backgroundColor: "white" }}
         variant="outlined"
       >
-        <StyledMenuItem value="a-z">A-Z</StyledMenuItem>
-        <StyledMenuItem value="z-a">Z-A</StyledMenuItem>
-        <StyledMenuItem value="newsFirst">News First (By Date)</StyledMenuItem>
+        <StyledMenuItem value="a-z">{getText("a_z")}</StyledMenuItem>
+        <StyledMenuItem value="z-a">{getText("z_a")}</StyledMenuItem>
+        <StyledMenuItem value="newsFirst">
+          {getText("NewsFirst")}
+        </StyledMenuItem>
       </Select>
     </FormControl>
   );

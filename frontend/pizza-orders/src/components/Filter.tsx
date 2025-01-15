@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { getStatusColor } from "../utils/colors";
 import { useOrders } from "../hooks/useOrders";
 import { OrderStatus } from "../enums/general";
+import { useAppContext } from "../hooks/useAppContext";
 
 const StatusButton = styled.button<{ status: string }>`
   background-color: ${(props) => getStatusColor(props.status)};
@@ -15,14 +16,16 @@ const StatusButton = styled.button<{ status: string }>`
 `;
 const Filter = () => {
   const { setFilter } = useOrders();
+  const { getText } = useAppContext();
+
   const statuses = Object.values(OrderStatus);
 
   const handleStatusClick = (status: string) => setFilter(status);
   return (
     <div>
-      <h3>Filter by:</h3>
+      <h3>{getText("filterBy")}:</h3>
       <StatusButton status={""} onClick={() => handleStatusClick("")}>
-        All
+        {getText("All")}
       </StatusButton>
       {statuses.map((status) => (
         <StatusButton
@@ -30,7 +33,7 @@ const Filter = () => {
           status={status}
           onClick={() => handleStatusClick(status)}
         >
-          {status}
+          {getText(status)}
         </StatusButton>
       ))}
     </div>

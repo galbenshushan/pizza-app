@@ -5,6 +5,7 @@ import OrderCard from "../components/Order/OrderCard";
 import SettingDialog from "../components/Settings/SettingDialog";
 import Sort from "../components/Sort";
 import Filter from "../components/Filter";
+import { useAppContext } from "../hooks/useAppContext";
 
 const Container = styled.div`
   display: flex;
@@ -29,11 +30,12 @@ const HeaderTitle = styled.h1`
 
 const Main = () => {
   const { sortedOrders } = useOrders();
+  const { getText } = useAppContext();
 
   return (
     <Container>
       <HeaderTitle style={{ fontWeight: "800", fontSize: "42px" }}>
-        Orders
+        {getText("orders")}
       </HeaderTitle>
       <Filter />
       <Sort />

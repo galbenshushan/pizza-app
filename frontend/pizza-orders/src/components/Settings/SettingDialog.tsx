@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 const StyledButton = styled(Button)`
   color: white !important;
+  font-weight: bold;
   text-transform: none;
   background-color: rgb(250, 51, 51) !important;
 
@@ -23,7 +24,7 @@ const DialogFooter = styled.div`
 
 const SettingDialog = () => {
   const { pollingTime, updatePollingTime } = useOrders();
-  const { openSettings, setOpenSettings } = useAppContext();
+  const { openSettings, setOpenSettings, getText } = useAppContext();
   const [newInterval, setNewInterval] = useState<number>(pollingTime);
 
   const handleClose = () => {
@@ -43,10 +44,10 @@ const SettingDialog = () => {
 
   return (
     <Dialog open={openSettings} onClose={handleClose} maxWidth="md" fullWidth>
-      <DialogTitle>Settings</DialogTitle>
+      <DialogTitle>{getText("settings")}</DialogTitle>
       <div style={{ padding: 24 }}>
         <TextField
-          label="Time to get data (ms)"
+          label={getText("timeToGetData")}
           fullWidth
           value={newInterval}
           onChange={handleIntervalChange}
@@ -55,10 +56,10 @@ const SettingDialog = () => {
       </div>
       <DialogFooter>
         <StyledButton onClick={handleClose} color="primary">
-          Cancel
+          {getText("cancel")}
         </StyledButton>
         <StyledButton onClick={handleSave} color="primary">
-          Ok
+          {getText("ok")}
         </StyledButton>
       </DialogFooter>
     </Dialog>
