@@ -16,20 +16,20 @@ exports.populateDatabase = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const general_1 = require("../enums/general");
 const orderModel_1 = __importDefault(require("../models/orderModel"));
-// Define the boundaries for Israel
+
 const ISRAEL_BOUNDS = {
     minLat: 29.5,
     maxLat: 33.5,
     minLng: 34.3,
     maxLng: 35.5,
 };
-// Helper function to generate a random latitude and longitude within Israel
+
 const getRandomLocation = () => {
     const lat = Math.random() * (ISRAEL_BOUNDS.maxLat - ISRAEL_BOUNDS.minLat) + ISRAEL_BOUNDS.minLat;
     const lng = Math.random() * (ISRAEL_BOUNDS.maxLng - ISRAEL_BOUNDS.minLng) + ISRAEL_BOUNDS.minLng;
     return { lat, lng };
 };
-// Function to generate mock data for orders
+
 const generateMockData = () => {
     const statuses = [
         general_1.OrderStatus.Received,
@@ -42,7 +42,7 @@ const generateMockData = () => {
     for (let i = 0; i < 300; i++) {
         const order = {
             title: `Order ${i + 1}`,
-            location: getRandomLocation(), // Use the helper function to ensure location is in Israel
+            location: getRandomLocation(), 
             orderTime: new Date(),
             status: statuses[Math.floor(Math.random() * statuses.length)],
             subItems: [
@@ -57,7 +57,7 @@ const generateMockData = () => {
     }
     return orders;
 };
-// Function to populate the database with the mock data
+
 const populateDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     const orders = generateMockData();
     try {
