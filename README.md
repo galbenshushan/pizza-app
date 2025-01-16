@@ -36,6 +36,10 @@ Build the backend from the ./backend directory.
 Create and run three MongoDB container (mongodb)
 
 
+
+
+
+
 I intended to use a MongoDB Replica Set for enabling the watch functionality, which is blocked on standalone instances. 
 The reason I wanted to use watch was to monitor changes in the database in real-time, allowing the application to react dynamically to data updates. 
 However, due to issues with the replica set configuration in the Docker environment, I was unable to complete the setup, preventing the use of watch as planned.
