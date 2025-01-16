@@ -7,8 +7,8 @@ import { OrderStatus } from "../../enums/general";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-const StatusLabel = styled.div<{ statusColor: string }>`
-  background-color: ${({ statusColor }) => statusColor};
+const StatusLabel = styled.div<{ color: string }>`
+  background-color: ${({ color }) => color};
   padding: 6px 12px;
   border-radius: 20px;
   color: white;
@@ -51,7 +51,7 @@ const OrderStatusSection: React.FC<OrderStatusSectionProps> = ({
   return (
     <>
       <StatusLabel
-        statusColor={getStatusColor(currentStatus)}
+        color={getStatusColor(currentStatus)}
         onClick={handleMenuOpen}
       >
         {getText(currentStatus)}
