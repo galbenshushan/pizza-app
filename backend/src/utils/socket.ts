@@ -34,8 +34,7 @@ export const streamLive = () => {
   // const changeStream = Order.watch();
   // console.log("Change stream started", changeStream);
   // changeStream.on("change", (change) => {
-  //   console.log("Database change detected:");
-  // socket.emit("orderUpdated", change); // Send change details to the client (you can modify this to send only orders)
+  // socket.emit("orderUpdated", change);
   // });
 };
 export const updateIntervalHandler = (newInterval: number) => {
