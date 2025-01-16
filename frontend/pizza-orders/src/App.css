@@ -2,15 +2,13 @@
   font-family: "Roboto", sans-serif !important;
 }
 
-/* Add this in your global styles */
 body[dir="rtl"] {
-  text-align: right; /* Right-align text */
+  text-align: right;
 }
 
 body[dir="ltr"] {
-  text-align: left; /* Left-align text */
+  text-align: left;
 }
-
 
 body {
   padding: 0;
@@ -21,10 +19,9 @@ body {
   height: 100vh;
 }
 
-
 input[type="number"] {
-  -moz-appearance: textfield; /* Remove arrows in Firefox */
-  -webkit-appearance: none; /* Remove arrows in Chrome, Safari, Edge, and Opera */
-  appearance: none; /* General rule for future-proofing */
-  margin: 0; /* Optional: Fixes alignment issues in some browsers */
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
 }
