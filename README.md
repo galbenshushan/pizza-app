@@ -32,7 +32,9 @@ docker-compose up -d
 This will:
 
 Build the frontend from the ./frontend/pizza-orders directory.
+
 Build the backend from the ./backend directory.
+
 Fill the data with the `pizza-orders.orders` file that in the repo and run MongoDB container on localhost:27018
 
 
