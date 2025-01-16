@@ -3,10 +3,11 @@ import { Order, SubItem } from "../../types/orders";
 import { handleShowOnMap } from "../../utils/location";
 import OrderItem from "./OrderItem";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { getStatusColor } from "../../utils/colors";
 import { getFormattedTime } from "../../utils/date";
 import StyledButton from "../UI/StyledButton";
 import { useAppContext } from "../../hooks/useAppContext";
+import { OrderStatus } from "../../enums/general";
+import OrderStatusSection from "./OrderStatusSection";
 
 const OrderCardContainer = styled.div`
   background-color: rgba(250, 51, 51, 0.9);
@@ -35,18 +36,6 @@ const OrderTitle = styled.h3`
   margin: 0;
 `;
 
-const StatusLabel = styled.span<{ statusColor: string }>`
-  background-color: ${({ statusColor }) => statusColor};
-  padding: 6px 12px;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  text-transform: capitalize;
-  display: inline-block;
-  margin-left: 12px;
-`;
-
 const OrderItemsContainer = styled.div`
   margin-top: 12px;
 `;
@@ -62,15 +51,17 @@ interface OrderCardProps {
 const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   const formattedTime = getFormattedTime(order.orderTime);
   const { getText, processText } = useAppContext();
+
   return (
     <OrderCardContainer key={order._id}>
       <OrderHeader>
         <OrderTitle>
           {processText(order.title.toLowerCase())} {`(${formattedTime})`}
         </OrderTitle>
-        <StatusLabel statusColor={getStatusColor(order.status)}>
-          {getText(order.status)}
-        </StatusLabel>
+        <OrderStatusSection
+          _id={order._id}
+          status={order.status as OrderStatus}
+        />
       </OrderHeader>
 
       <OrderItemsContainer>

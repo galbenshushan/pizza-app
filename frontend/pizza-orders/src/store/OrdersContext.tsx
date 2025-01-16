@@ -15,6 +15,7 @@ interface OrdersContextType {
   handleSortChange: (event: SelectChangeEvent<string>) => void;
   sortOption: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  updateOrderStatus: (orderId: string, newStatus: string) => void;
 }
 
 export const OrdersContext = createContext<OrdersContextType | undefined>(
@@ -52,6 +53,18 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const updateOrderStatus = (orderId: string, newStatus: String) => {
+    if (socket) {
+      socket.emit("updateStatus", { orderId, newStatus });
+      socket.on("statusUpdated", (updatedOrder) => {
+        console.log("Order updated successfully:", updatedOrder);
+      });
+      socket.on("error", (error) => {
+        console.error("Error updating order status:", error.message);
+      });
+    }
+  };
+
   const handleSortChange = (event: SelectChangeEvent<string>) => {
     console.log(event);
 
@@ -69,7 +82,7 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({
   const sortedOrders = filterAndSortOrders(orders, sortOption);
 
   useEffect(() => {
-    const newSocket = io(serverUrl);
+    const newSocket = io(import.meta.env.REACT_APP_SERVER_URL || serverUrl);
     manipulateNewSocket(newSocket);
 
     return () => {
@@ -88,7 +101,7 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({
         updatePollingTime,
         pollingTime,
         handleSortChange,
-
+        updateOrderStatus,
         setFilter,
       }}
     >

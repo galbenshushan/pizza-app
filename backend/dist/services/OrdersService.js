@@ -13,23 +13,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const orderModel_1 = __importDefault(require("../models/orderModel"));
-const general_1 = require("../enums/general");
 class OrderService {
-    createOrder(title, location, orderTime, status, subItems) {
-        return __awaiter(this, void 0, void 0, function* () {
+    constructor() {
+        this.updateOrderStatus = (orderId, status) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const newOrder = new orderModel_1.default({
-                    title,
-                    location,
-                    orderTime,
-                    status,
-                    subItems,
-                });
-                yield newOrder.save();
-                return newOrder;
+                const order = yield orderModel_1.default.findById(orderId);
+                if (!order) {
+                    throw new Error("Order not found");
+                }
+                order.status = status;
+                yield order.save();
+                return order;
             }
             catch (error) {
-                throw new Error("Error creating the order: " + error.message);
+                throw new Error("Error updating order status: " + error.message);
             }
         });
     }
@@ -40,41 +37,6 @@ class OrderService {
             }
             catch (error) {
                 throw new Error("Error fetching orders: " + error.message);
-            }
-        });
-    }
-    updateOrderStatus(orderId, status) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const order = yield orderModel_1.default.findById(orderId);
-                if (!order)
-                    throw new Error("Order not found");
-                order.status = status;
-                yield order.save();
-                return order;
-            }
-            catch (error) {
-                throw new Error("Error updating order status: " + error.message);
-            }
-        });
-    }
-    getOrdersByStatus(status) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield orderModel_1.default.find({ status });
-            }
-            catch (error) {
-                throw new Error("Error fetching orders by status: " + error.message);
-            }
-        });
-    }
-    getUndeliveredOrders() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield orderModel_1.default.find({ status: { $ne: general_1.OrderStatus.Delivered } });
-            }
-            catch (error) {
-                throw new Error("Error fetching undelivered orders: " + error.message);
             }
         });
     }

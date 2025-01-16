@@ -10,8 +10,6 @@ import {
   streamLive,
   updateIntervalHandler,
 } from "./utils/socket";
-import { generateMockData } from "./utils/data";
-import { cleanDatabase } from "./controllers/mockController";
 
 dotenv.config();
 

@@ -3,6 +3,7 @@ export enum SocketEvents {
   ORDERS = "orders",
   UPDATE_POLLING_TIME = "updatePollingTime",
   INTERVAL = "interval",
+  UPDATE_STATUS = "updateStatus",
 }
 
 export enum OrderStatus {

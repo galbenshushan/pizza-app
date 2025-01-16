@@ -1,9 +1,11 @@
 import socketIo from "socket.io";
-import { getOrdersInterval } from "../controllers/ordersController";
+import {
+  getOrdersInterval,
+  updateOrderStatus,
+} from "../controllers/ordersController";
 import fs from "fs";
 import { createConfigFileIfNotExist, readConfigFile } from "./fs";
 import { configFilePath, defaultConfig } from "../consts/socket";
-import Order from "../models/orderModel";
 
 let defaultInterval = defaultConfig.defaultInterval;
 let ordersInterval: NodeJS.Timeout | null = null;
@@ -14,6 +16,14 @@ readConfigFile();
 export const socketHandler = (socket: socketIo.Socket) => {
   getOrdersInterval(defaultInterval);
   socket.on("updatePollingTime", updateIntervalHandler);
+  socket.on("updateStatus", async ({ orderId, newStatus }) => {
+    if (!orderId || !newStatus) {
+      socket.emit("error", { message: "Invalid order ID or status" });
+      return;
+    }
+
+    await updateOrderStatus(socket, { orderId, newStatus });
+  });
 
   socket.on("disconnect", () => {
     console.log("Client disconnected");
