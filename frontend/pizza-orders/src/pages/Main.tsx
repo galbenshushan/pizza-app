@@ -24,7 +24,6 @@ const OrderList = styled.div`
 `;
 
 const HeaderTitle = styled.h1`
-  font-weight: 800;
   font-size: 42px;
 `;
 
@@ -34,9 +33,7 @@ const Main = () => {
 
   return (
     <Container>
-      <HeaderTitle style={{ fontWeight: "800", fontSize: "42px" }}>
-        {getText("orders")}
-      </HeaderTitle>
+      <HeaderTitle>{getText("orders")}</HeaderTitle>
       <Filter />
       <Sort />
       <OrderList>
