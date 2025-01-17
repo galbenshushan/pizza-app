@@ -39,12 +39,8 @@ Fill the data with the `pizza-orders.orders` file that in the repo and run Mongo
 
 
 
-
-
 ### MongoDB Replica Set Setup and Watch Functionality
 
-I intended to use a MongoDB Replica Set for enabling the watch functionality, which is blocked on standalone instances. 
-The reason I wanted to use watch was to monitor changes in the database in real-time, allowing the application to react dynamically to data updates. 
-However, due to issues with the replica set configuration in the Docker environment, I was unable to complete the setup, preventing the use of watch as planned.
+I intended to configure a MongoDB Replica Set to enable the watch functionality, which is essential for monitoring database changes in real-time and allowing the application to dynamically respond to updates. Unfortunately, due to issues with my computer setup, I was unable to properly configure MongoDB as a Replica Set within the Docker environment. This prevented me from utilizing the watch functionality as planned.
 
 
