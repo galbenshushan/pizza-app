@@ -6,6 +6,14 @@ import { useOrders } from "../../hooks/useOrders";
 import { OrderStatus } from "../../enums/general";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import EditIcon from "@mui/icons-material/Edit";
+
+const StatusContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  cursor: pointer;
+`;
 
 const StatusLabel = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
@@ -16,8 +24,12 @@ const StatusLabel = styled.div<{ color: string }>`
   font-size: 0.9rem;
   text-transform: capitalize;
   display: inline-block;
-  margin-left: 12px;
-  cursor: pointer;
+  margin: 0 8px;
+`;
+
+const EditIconStyled = styled(EditIcon)`
+  font-size: 16px;
+  color: white;
 `;
 
 interface OrderStatusSectionProps {
@@ -50,12 +62,12 @@ const OrderStatusSection: React.FC<OrderStatusSectionProps> = ({
 
   return (
     <>
-      <StatusLabel
-        color={getStatusColor(currentStatus)}
-        onClick={handleMenuOpen}
-      >
-        {getText(currentStatus)}
-      </StatusLabel>
+      <StatusContainer onClick={handleMenuOpen}>
+        <StatusLabel color={getStatusColor(currentStatus)}>
+          {getText(currentStatus)}
+        </StatusLabel>
+        <EditIconStyled />
+      </StatusContainer>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
